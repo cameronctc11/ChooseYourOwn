@@ -4,85 +4,82 @@
 //
 //  Created by McKenzie, Cameron - Student on 10/6/25.
 //
-
 import SwiftUI
-
 struct PortalSelectionScreen: View {
+    @Binding var currentScreen: Screen
+    
     var body: some View {
-        NavigationStack {
-            ZStack {
-                Color.white
-                    .ignoresSafeArea()
+        ZStack {
+            Color.white.ignoresSafeArea()
+            
+            VStack(spacing: 50) {
+                Text("Choose a Portal")
+                    .font(Font.custom("Menlo-BoldItalic", size: 40))
+                    .foregroundColor(.black)
                 
-                VStack(spacing: 50) {
-                    Text("Choose a Portal")
-                        .font(Font.custom("Menlo-BoldItalic", size: 40))
-                        .foregroundColor(.black)
-                        .shadow(radius: 5)
+                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 40) {
+                    // Dino Portal
+                    Button(action: { currentScreen = .dinoPortal }) {
+                        VStack {
+                            Image("DinoPortal")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 200, height: 200)
+                            Text("Dino Portal")
+                        }
+                    }
                     
-                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 40) {
-                        
-                        NavigationLink(destination: DinoPortal()) {
-                            VStack {
-                                Text("Dino Portal")
-                                    .font(.headline)
-                                    .foregroundColor(.black)
-                                Image("DinoPortal")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 200, height: 200)
-                                    .shadow(radius: 5)
-                            }
+                    // Europe Portal
+                    Button(action: { currentScreen = .europePortal }) {
+                        VStack {
+                            Image("EuropePortal")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 200, height: 200)
+                            Text("Europe Portal")
                         }
-                        
-                        NavigationLink(destination: EuropePortal()) {
-                            VStack {
-                                Text("Europe Portal")
-                                    .font(.headline)
-                                    .foregroundColor(.black)
-                                Image("EuropePortal")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 200, height: 200)
-                                    .shadow(radius: 5)
-                            }
+                    }
+                    
+                    // Egypt Portal
+                    Button(action: { currentScreen = .egyptPortal }) {
+                        VStack {
+                            Image("EgyptPortal")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 200, height: 200)
+                            Text("Egypt Portal")
                         }
-                        
-                        NavigationLink(destination: EgyptPortal()) {
-                            VStack {
-                                Text("Egypt Portal")
-                                    .font(.headline)
-                                    .foregroundColor(.black)
-                                Image("EgyptPortal")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 200, height: 200)
-                                    .shadow(radius: 5)
-                            }
-                        }
-                        
-                        NavigationLink(destination: DystopiaPortal()) {
-                            VStack {
-                                Text("Dystopia Portal")
-                                    .font(.headline)
-                                    .foregroundColor(.black)
-                                Image("DystopiaPortal")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 200, height: 200)
-                                    .shadow(radius: 5)
-                            }
+                    }
+                    
+                    // Dystopia Portal
+                    Button(action: { currentScreen = .dystopiaPortal }) {
+                        VStack {
+                            Image("DystopiaPortal")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 200, height: 200)
+                            Text("Dystopia Portal")
                         }
                     }
                 }
-                .padding()
+                
+                // Restart button
+                Button("Restart") { currentScreen = .home }
+                    .font(.headline)
+                    .padding()
+                    .frame(width: 180)
+                    .background(Color.red.opacity(0.8))
+                    .foregroundColor(.white)
+                    .cornerRadius(15)
             }
+            .padding()
         }
     }
 }
 
 struct PortalSelectionScreen_Previews: PreviewProvider {
+    @State static var screen: Screen = .portalSelection
     static var previews: some View {
-        PortalSelectionScreen()
+        PortalSelectionScreen(currentScreen: $screen)
     }
 }
